@@ -1,10 +1,13 @@
 import './App.css'
 
+import Routes from './components/Routes';
+import CartProvider from './context/CardContext/CartContext';
+
 function App() {
   return (
-    <div className="App">
-      <h1>Web store application</h1>
-    </div>
+    <CartProvider>
+      <Routes/>
+    </CartProvider>
   );
 }
 
