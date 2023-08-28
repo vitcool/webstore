@@ -10,6 +10,9 @@ interface ICartContext {
   items: ICartProductItem[];
   addProduct: (product: IProduct) => void;
   removeProduct: (productId: number) => void;
+  increaseQuantity: (productId: number) => void;
+  decreaseQuantity: (productId: number) => void;
+  checkIsAlreadyInCart: (productId: number) => boolean;
 }
 
 export const CardContext = createContext<ICartContext | null>(null);
@@ -32,9 +35,43 @@ const CartProvider = ({ children }: ICartProviderProps) => {
     );
   };
 
+  const increaseQuantity = (productId: number) => {
+    setCartItems((cartItems) =>
+      cartItems.map((cartItem) => {
+        if (cartItem.id === productId) {
+          return { ...cartItem, quantity: cartItem.quantity + 1 };
+        }
+        return cartItem;
+      })
+    );
+  };
+
+  const decreaseQuantity = (productId: number) => {
+    setCartItems((cartItems) =>
+      cartItems.map((cartItem) => {
+        if (cartItem.id === productId) {
+          cartItem.quantity - 1 === 0 && removeProduct(productId);
+          return { ...cartItem, quantity: cartItem.quantity - 1 };
+        }
+        return cartItem;
+      })
+    );
+  };
+
+  const checkIsAlreadyInCart = (productId: number) => {
+    return cartItems.some((cartItem) => cartItem.id === productId);
+  };
+
   return (
     <CardContext.Provider
-      value={{ items: cartItems, addProduct, removeProduct }}
+      value={{
+        items: cartItems,
+        addProduct,
+        removeProduct,
+        increaseQuantity,
+        decreaseQuantity,
+        checkIsAlreadyInCart,
+      }}
     >
       {children}
     </CardContext.Provider>

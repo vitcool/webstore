@@ -1,9 +1,9 @@
-import ProductsList from 'components/common/ProductsList';
+import { Link } from 'react-router-dom';
+
 import { IProduct } from 'types';
 import { PAGE_ROUTES, PRODUCTS_URL } from 'consts';
-
 import useFetch from 'hooks/useFetch';
-import { Link } from 'react-router-dom';
+import ProductsList from 'components/common/ProductsList';
 
 const ProductsListPage = () => {
   const { data: products, loading: isLoading } =

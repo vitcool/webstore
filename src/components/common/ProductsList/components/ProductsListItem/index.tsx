@@ -3,16 +3,9 @@ import { memo } from 'react';
 import { ICartProductItem } from 'context/CardContext/CartContext';
 import { IProduct } from 'types';
 
-type ProductItemProps = (
-  | {
-      isCart: true;
-      product: ICartProductItem;
-    }
-  | {
-      isCart: false;
-      product: IProduct;
-    }
-) & {
+type IProductItemProps = {
+  product: ICartProductItem | IProduct;
+  isCart: boolean;
   onItemClick: (id: number) => void;
   onRemoveClick?: (id: number) => void;
   onIncreaseQuantity?: (id: number) => void;
@@ -27,7 +20,7 @@ const ProductsListItem = memo(
     onIncreaseQuantity,
     onDecreaseQuantity,
     onItemClick,
-  }: ProductItemProps) => {
+  }: IProductItemProps) => {
     const { id, title } = product;
 
     const handleItemClick = () => {
@@ -47,17 +40,17 @@ const ProductsListItem = memo(
     };
 
     return (
-      <li onClick={handleItemClick}>
-        {title}
-        {isCart && (
-          <>
+      <li>
+        <p onClick={handleItemClick}>{title}</p>
+        {isCart && 'quantity' in product && (
+          <div>
             <button onClick={handleRemoveClick}>remove from cart</button>
             <div>
               <button onClick={handleIncreaseQuantityClick}>+</button>
-              <span>{product.quantity}</span>
-              <button onClick={handleDecreaseQuantityClick}>+</button>
+              <span>{product.quantity || ''}</span>
+              <button onClick={handleDecreaseQuantityClick}>-</button>
             </div>
-          </>
+          </div>
         )}
       </li>
     );

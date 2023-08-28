@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import useCart from 'hooks/useCart';
-import ProductsList from 'components/common/ProductsList';
 import { PAGE_ROUTES } from 'consts';
+import ProductsList from 'components/common/ProductsList';
 
 const CartPage = () => {
   const { items } = useCart();
