@@ -1,35 +1,44 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
-import { IProduct } from "../../components/Product";
+import { IProduct } from 'types';
 
-interface ICart {
-  products: IProduct[];
+export interface ICartProductItem extends IProduct {
+  quantity: number;
+}
+
+interface ICartContext {
+  items: ICartProductItem[];
   addProduct: (product: IProduct) => void;
   removeProduct: (productId: number) => void;
 }
 
-export const CardContext = createContext<ICart>({} as ICart);// remove casting, add quantity to product, move router to level up
+export const CardContext = createContext<ICartContext | null>(null);
+// remove casting, add quantity to product, move router to level up
 
 interface ICartProviderProps {
   children: React.ReactNode;
 }
 
 const CartProvider = ({ children }: ICartProviderProps) => {
-  const [cartProducts, setCartProducts] = useState<IProduct[]>([]);
+  const [cartItems, setCartItems] = useState<ICartProductItem[]>([]);
 
   const addProduct = (product: IProduct) => {
-    setCartProducts((products) => [...products, product]);
+    setCartItems((items) => [...items, { ...product, quantity: 1 }]);
   };
 
   const removeProduct = (productId: number) => {
-    setCartProducts((products) => products.filter((product) => product.id !== productId));
+    setCartItems((cartItems) =>
+      cartItems.filter((cartItem) => cartItem.id !== productId)
+    );
   };
 
   return (
-    <CardContext.Provider value={{products: cartProducts, addProduct, removeProduct}}>
+    <CardContext.Provider
+      value={{ items: cartItems, addProduct, removeProduct }}
+    >
       {children}
     </CardContext.Provider>
-  )
-}
+  );
+};
 
 export default CartProvider;

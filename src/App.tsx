@@ -1,7 +1,7 @@
 import './App.css'
 
-import Routes from './components/Routes';
-import CartProvider from './context/CardContext/CartContext';
+import Routes from 'components/Routes';
+import CartProvider from 'context/CardContext/CartContext';
 
 function App() {
   return (
