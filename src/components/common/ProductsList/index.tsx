@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
+import useCart from 'hooks/useCart';
+import { ICartProductItem } from 'context/CardContext/CartContext';
+import ProductsListItem from 'components/common/ProductsList/components/ProductsListItem';
 import { PAGE_ROUTES } from 'consts';
 import { IProduct } from 'types';
-import useCart from 'hooks/useCart';
-
-import ProductsListItem from 'components/common/ProductsList/components/ProductsListItem';
-import { ICartProductItem } from 'context/CardContext/CartContext';
 
 type ProductsListProps = {
   isCart: boolean;

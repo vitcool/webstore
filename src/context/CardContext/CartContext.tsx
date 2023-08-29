@@ -16,7 +16,6 @@ interface ICartContext {
 }
 
 export const CardContext = createContext<ICartContext | null>(null);
-// remove casting, add quantity to product, move router to level up
 
 interface ICartProviderProps {
   children: React.ReactNode;

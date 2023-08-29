@@ -2,8 +2,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import useCart from 'hooks/useCart';
 import useFetch from 'hooks/useFetch';
-import { PRODUCTS_URL, PAGE_ROUTES } from 'consts';
 import { IProduct } from 'types';
+import { PRODUCTS_URL, PAGE_ROUTES } from 'consts';
+
 
 const ProductPage = () => {
   const { productId } = useParams();
